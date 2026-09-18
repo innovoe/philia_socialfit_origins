@@ -1,0 +1,8 @@
+.env
+.DS_Store
+node_modules/
+*.log
+.idea/
+.vscode/
+origins-emails.txt
+origins-preview-links.csv

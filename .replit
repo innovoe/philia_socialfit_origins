@@ -1,0 +1,6 @@
+run = "npm start"
+entrypoint = "server.mjs"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
