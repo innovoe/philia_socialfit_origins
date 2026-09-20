@@ -88,13 +88,11 @@
           show('code');
           codeInput.focus();
         } catch (error) {
-          emailError.textContent = error.message === 'unknown_email'
-            ? 'This email is not on the Origins list.'
-            : error.message === 'email_send_failed'
-              ? 'We couldn’t send that code. Try again shortly.'
-              : error.message === 'throttled'
-                ? 'Please wait a moment and try again.'
-                : 'We couldn’t check that email yet. Please try again.';
+          emailError.textContent = error.message === 'email_send_failed'
+            ? 'We couldn’t send that code. Try again shortly.'
+            : error.message === 'throttled'
+              ? 'Please wait a moment and try again.'
+              : 'Looks like this email is not valid. Please enter the email you provided to SocialFit.';
           emailError.hidden = false;
         } finally {
           emailSubmit.textContent = 'Continue';
@@ -118,7 +116,7 @@
           codeError.textContent = error.message === 'invalid_code'
             ? 'That code didn’t match. Please try again.'
             : error.message === 'unknown_email'
-              ? 'This email is not on the Origins list.'
+              ? 'Looks like this email is not valid. Please enter the email you provided to SocialFit.'
               : error.message === 'throttled'
                 ? 'Please wait a moment and try again.'
                 : 'We couldn’t verify that code yet. Please try again.';
