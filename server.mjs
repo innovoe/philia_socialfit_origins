@@ -5,6 +5,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 const gateHtml = await readFile(new URL('./index.html', import.meta.url));
 const previewHtml = await readFile(new URL('./preview.html', import.meta.url));
 const rsvpHtml = await readFile(new URL('./rsvp.html', import.meta.url));
+const logoBytes = await readFile(new URL('./SocialfitbyPLLogo.webp', import.meta.url));
 const port = Number(process.env.PORT || 3000);
 
 const accessSecret = process.env.ORIGINS_LINK_SECRET || '';
@@ -167,6 +168,12 @@ http.createServer(async (req, res) => {
     return;
   }
   if (pathname === '/favicon.ico') { res.writeHead(204); res.end(); return; }
+  if (pathname === '/SocialfitbyPLLogo.webp') {
+    if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405, { Allow: 'GET, HEAD' }); res.end(); return; }
+    res.writeHead(200, {...securityHeaders('image/webp'), 'Cache-Control':'public, max-age=86400'});
+    res.end(req.method === 'HEAD' ? undefined : logoBytes);
+    return;
+  }
 
   if (pathname === '/api/access/me') {
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405, { Allow: 'GET, HEAD' }); res.end(); return; }
