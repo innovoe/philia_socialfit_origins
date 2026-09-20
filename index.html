@@ -11,8 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.2/dist/cdn.min.js"></script>
-  <style>[x-cloak]{display:none!important}</style>
   <style type="text/tailwindcss">
     @theme {
       --font-head: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -27,131 +25,143 @@
       body { @apply m-0 bg-canvas text-ink font-body text-[15px] leading-[1.8] antialiased; }
       button { @apply cursor-pointer text-ink; }
       button:disabled { @apply cursor-default opacity-35; }
-      button:focus-visible, a:focus-visible { outline: 2px solid #B30D12; outline-offset: 5px; }
+      button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #B30D12; outline-offset: 5px; }
     }
     @layer components {
-      .site-shell { @apply mx-auto my-[34px] max-w-[960px] overflow-hidden rounded-[28px] border border-[#EEE9E4] bg-paper px-12 shadow-[0_18px_50px_rgba(32,32,52,.06)] max-[1000px]:mx-5 max-[1000px]:my-6 max-[680px]:m-0 max-[680px]:rounded-none max-[680px]:border-0 max-[680px]:px-6 max-[680px]:shadow-none; }
-      .eyebrow { @apply font-label text-[9px] font-bold uppercase leading-[1.6] tracking-[1.7px] text-[#8F8D8B]; }
-      .display-1 { @apply font-head text-[68px] font-normal leading-none tracking-[-1.6px] max-[680px]:text-[52px] max-[680px]:tracking-[-1px]; }
-      .display-2 { @apply font-head text-[52px] font-normal leading-[1.06] tracking-[-1px] max-[680px]:text-[42px]; }
-      .display-3 { @apply font-head text-[34px] font-normal leading-[1.12] tracking-[-.5px]; }
-      .body-copy { @apply text-[14px] leading-[1.8] text-[#56545A] max-[680px]:text-[13px]; }
-      .fine-copy { @apply mt-3.5 text-[11px] leading-[1.7] text-muted; }
-      .primary-btn { @apply inline-flex min-h-[52px] items-center justify-center gap-6 rounded-[14px] border border-[#050507] bg-[#050507] px-6 py-3.5 font-label text-[12px] font-semibold leading-[1.5] text-paper no-underline transition hover:bg-[#29292F]; }
-      .secondary-btn { @apply inline-flex min-h-[46px] items-center justify-center rounded-[12px] border border-[#DDD4CB] bg-transparent px-5 py-3 text-[12px] transition hover:border-[#B9ABA0] hover:bg-[#F8F3EE]; }
-      .text-btn { @apply border-0 bg-transparent px-0 py-2.5 text-[12px] font-medium; }
-      .section-rule { @apply border-t border-line py-[27px]; }
-      .choice-card { @apply grid grid-cols-[33px_1fr] items-start gap-[17px] rounded-[18px] border border-line bg-paper p-[22px] text-left transition hover:border-[#CCC0B6] hover:bg-[#F8F3EE] max-[680px]:grid-cols-[30px_1fr] max-[680px]:gap-[15px] max-[680px]:p-5; }
-      .choice-card-selected { @apply border-accent bg-panel shadow-[0_0_0_1px_rgba(179,13,18,.1)]; }
-      .segment { @apply rounded-full border border-[#DDD4CB] bg-transparent px-[15px] py-2.5 text-[11px] leading-[1.5] transition; }
-      .segment-selected { @apply border-[#050507] bg-[#050507] text-paper; }
-      .reach-card { @apply min-h-[92px] rounded-[14px] border border-[#DDD4CB] bg-transparent px-4 py-[15px] text-left transition max-[680px]:min-h-0; }
-      .reach-card-selected { @apply border-accent bg-panel shadow-[0_0_0_1px_rgba(179,13,18,.08)]; }
-      .panel { @apply rounded-[20px] border border-line bg-panel; }
-      .avatar { @apply grid size-[47px] shrink-0 place-items-center rounded-full border border-[#E5DED8] bg-paper font-label text-[17px] font-medium text-[#505968]; }
-      .progress-line { @apply h-0.5 w-[27px] rounded-full bg-line max-[680px]:w-[21px]; }
-      .progress-line-on { @apply bg-accent; }
+      .site-shell { @apply mx-auto my-[34px] max-w-[620px] overflow-hidden rounded-[28px] border border-[#EEE9E4] bg-paper px-12 pb-14 pt-12 shadow-[0_18px_50px_rgba(32,32,52,.06)] max-[1000px]:mx-5 max-[1000px]:my-6 max-[680px]:m-0 max-[680px]:rounded-none max-[680px]:border-0 max-[680px]:px-6 max-[680px]:pt-10 max-[680px]:shadow-none; }
+      .eyebrow { @apply font-label text-[9px] font-bold uppercase leading-[1.6] tracking-[1.7px] text-accent; }
+      .primary-btn { @apply inline-flex min-h-[52px] w-full items-center justify-center rounded-[14px] border border-[#050507] bg-[#050507] px-6 py-3.5 font-label text-[12px] font-semibold leading-[1.5] text-paper transition hover:bg-[#29292F]; }
+      .text-btn { @apply border-0 bg-transparent px-0 py-2.5 text-[12px] font-medium text-muted; }
+      .field { @apply w-full rounded-[14px] border border-[#DDD4CB] bg-paper px-[18px] py-[15px] text-[15px] text-ink outline-none transition placeholder:text-[#B0AAA4] focus:border-[#050507]; }
     }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
   </style>
   <script>
-    window.SOCIALFIT_PREVIEW_CONFIG = window.SOCIALFIT_PREVIEW_CONFIG || {keyRequestEndpoint:'',csrfToken:''};
-    document.addEventListener('alpine:init', () => {
-      Alpine.data('originsPreview', () => ({
-        screen:'landing', step:0, matrixContext:'week', activity:null, mood:null, intention:'wings',
-        time:'Saturday morning', radius:'≤20 minutes', reach:'Friends of friends', invited:[], responders:[],
-        routeStatus:'Finding fit for your kind of company…', planDone:false, excitedDone:false, keysDone:false,
-        keyRequestBusy:false, keyRequestError:'', timers:[],
-        activities:[
-          {id:'coffee',title:'A conversation that goes somewhere',sub:'Good coffee. Good company. Room to be yourself.',signal:'Good coffee. A conversation that goes somewhere.',venue:'An indoor café',world:'Connection'},
-          {id:'walk',title:'A little movement. A little company.',sub:'An easy walk with someone on your wavelength.',signal:'An easy walk. A little fresh perspective.',venue:'A shaded walking route',world:'Movement'},
-          {id:'ideas',title:'Someone to think out loud with',sub:'An idea, a next chapter, a different perspective.',signal:'Bring an idea. Leave with a new perspective.',venue:'A quiet café table',world:'Ideas & possibility'},
-          {id:'games',title:'Something playful, just because',sub:'A small table. A good game. A lighter evening.',signal:'A game night with room for good conversation.',venue:'A relaxed games café',world:'Play'}
-        ],
-        moods:[
-          {id:'gentle',title:'I’m feeling gentle',sub:'Calm company. No pressure to perform.'},
-          {id:'curious',title:'I’m feeling curious',sub:'Fresh perspectives. Let the conversation wander.'},
-          {id:'lively',title:'I’m feeling lively',sub:'Playful, expressive, happy to join in.'}
-        ],
-        times:['Saturday morning','Sunday afternoon','A weekday evening'],
-        radii:['<10 minutes','≤20 minutes','≤40 minutes','Wherever'],
-        reaches:[
-          {value:'Just my circle',description:'People you already know and have placed in your private Circle.'},
-          {value:'My pod',description:'People in the SocialFit community closest to where you live.'},
-          {value:'Friends of friends',description:'People connected to you through someone you trust.'},
-          {value:'All of Dubai',description:'Relevant SocialFit members across the city.'}
-        ],
-        people:[
-          {id:'noor',name:'Noor',initial:'N',activity:['coffee','walk','ideas'],mood:'gentle',line:'“I’d love something easy, with room for a proper conversation.”'},
-          {id:'alex',name:'Alex',initial:'A',activity:['walk','games','coffee'],mood:'lively',line:'“A small plan is exactly what my week is missing.”'},
-          {id:'dev',name:'Dev',initial:'D',activity:['ideas','coffee','games'],mood:'curious',line:'“Always up for a different perspective and good company.”'},
-          {id:'mira',name:'Mira',initial:'M',activity:['coffee','games','walk'],mood:'gentle',line:'“Something relaxed, with people who want to be there.”'},
-          {id:'sam',name:'Sam',initial:'S',activity:['ideas','walk','coffee'],mood:'curious',line:'“This sounds like a lovely way to meet beyond my usual world.”'},
-          {id:'leila',name:'Leila',initial:'L',activity:['games','ideas','walk'],mood:'lively',line:'“A little laughter and a good conversation? Count me in.”'}
-        ],
-        get activityData(){return this.activities.find(item=>item.id===this.activity)||this.activities[0]},
-        get moodData(){return this.moods.find(item=>item.id===this.mood)||this.moods[0]},
-        get roomPeople(){return this.responders.filter(person=>this.invited.includes(person.id))},
-        get otherFlowVisible(){return this.excitedDone||this.keysDone},
-        get progressIndex(){if(this.step<=2)return this.step;if(this.step===3)return 2;return this.step-1},
-        get matrixRows(){return this.matrixContext==='week'?[['What if you needed a real conversation after a week of work and little else?','What if, with SocialFit, you could make room for easy company, at a time and pace that fit?'],['What if you wanted a reason to reconnect with people already in your life?','What if, with SocialFit, you could give those relationships a little attention and a reason to reconnect?'],['What if you needed something playful beyond your usual routine?','What if, with SocialFit, you could find an experience you would genuinely like to share?']]:[['What if you wanted people who understood the chapter you were entering?','What if, with SocialFit, the intelligence could understand your life, interests and what matters now?'],['What if you needed a perspective beyond your usual circle?','What if, with SocialFit, a Signal could travel through trusted pathways to people you might never otherwise meet?'],['What if you wanted relationships with room to become something more?','What if, with SocialFit, you could bring people together and nurture the connections that develop?']]},
-        init(){this.$watch('activity',()=>this.invalidateResults());this.$watch('mood',()=>this.invalidateResults());this.$watch('intention',value=>{this.reach=value==='roots'?'Just my circle':'Friends of friends';this.invalidateResults()})},
-        resetJourney(){this.clearTimers();Object.assign(this,{step:0,activity:null,mood:null,intention:'wings',time:'Saturday morning',radius:'≤20 minutes',reach:'Friends of friends',invited:[],responders:[],planDone:false,excitedDone:false,keysDone:false,keyRequestBusy:false,keyRequestError:''})},
-        clearTimers(){this.timers.forEach(clearTimeout);this.timers=[]},
-        scrollTop(){this.$nextTick(()=>window.scrollTo({top:0,behavior:'smooth'}))},
-        goHome(){this.clearTimers();this.screen='landing';this.scrollTop()},
-        startSignal(){this.resetJourney();this.screen='signal';this.track('demo_started');this.scrollTop()},
-        openCircle(){this.resetJourney();this.screen='circle';this.track('demo_circle_opened');this.scrollTop()},
-        choose(field,value){this[field]=value;if(['time','radius','reach'].includes(field))this.invalidateResults();this.track('demo_choice_selected',{field,value})},
-        invalidateResults(){this.responders=[];this.invited=[]},
-        buildResponders(){const ai=this.activities.findIndex(item=>item.id===this.activity),ri=this.radii.indexOf(this.radius);return this.people.filter(person=>person.activity.includes(this.activity)).map((person,index)=>({...person,fit:(person.mood===this.mood?5:0)+((index+ai+ri)%3),minutes:ri===0?6+index:ri===1?12+index*2:ri===2?25+index*3:35+index*5})).sort((a,b)=>b.fit-a.fit||a.id.localeCompare(b.id)).slice(0,3)},
-        source(index){if(this.reach==='Just my circle')return ['Inner Circle','Support Circle','Affinity Circle'][index];if(this.reach==='My pod')return 'In your Home Pod';if(this.reach==='Friends of friends')return 'Through a mutual connection';return 'Elsewhere in Dubai'},
-        nextStep(){if(this.step===0&&!this.activity)return;if(this.step===1&&!this.mood)return;if(this.step===2){this.track('demo_signal_sent',{activity:this.activity,mood:this.mood,reach:this.reach,radius:this.radius,time:this.time});this.step=3;this.routeStatus='Finding fit for your kind of company…';this.scrollTop();this.timers.push(setTimeout(()=>{this.routeStatus='Exploring the reach you chose…'},900));this.timers.push(setTimeout(()=>{this.responders=this.buildResponders();this.step=4;this.track('demo_responses_viewed',{activity:this.activity,reach:this.reach});this.scrollTop()},1800));return}if(this.step===4&&this.invited.length<1)return;if(this.step===4)this.track('demo_room_formed',{people:this.invited.length+1});this.step+=1;this.scrollTop()},
-        back(){if(this.step===0)return this.goHome();if([3,4].includes(this.step))this.step=2;else this.step-=1;this.clearTimers();this.scrollTop()},
-        toggleInvite(id){this.invited=this.invited.includes(id)?this.invited.filter(item=>item!==id):[...this.invited,id];this.track('demo_invitation_toggled',{count:this.invited.length})},
-        agreePlan(){this.planDone=true;this.track('demo_plan_agreed')},
-        markExcited(){this.excitedDone=true;this.track('demo_onboarding_excitement_selected')},
-        async requestKeys(){if(this.keyRequestBusy||this.keysDone)return;this.keyRequestBusy=true;this.keyRequestError='';const config=window.SOCIALFIT_PREVIEW_CONFIG;try{if(config.keyRequestEndpoint){const headers={'Content-Type':'application/json'};if(config.csrfToken)headers['X-CSRF-Token']=config.csrfToken;const response=await fetch(config.keyRequestEndpoint,{method:'POST',credentials:'same-origin',headers,body:JSON.stringify({source:'origins_interactive_preview'})});if(!response.ok)throw new Error(`Request failed: ${response.status}`)}this.keysDone=true;this.track('demo_extra_keys_requested',{source:'origins_interactive_preview'})}catch(error){this.keyRequestError='We couldn’t save your request yet. Please try again.';this.track('demo_extra_keys_request_failed',{source:'origins_interactive_preview'})}finally{this.keyRequestBusy=false}},
-        track(name,parameters={}){document.dispatchEvent(new CustomEvent('socialfit:demo',{detail:{name,parameters,demo:true}}));if(typeof window.gtag==='function')window.gtag('event',name,{...parameters,demo:true})}
-      }))
-    })
+    document.addEventListener('DOMContentLoaded', () => {
+      const emailForm = document.getElementById('email-form');
+      const codeForm = document.getElementById('code-form');
+      const emailInput = document.getElementById('origins-email');
+      const codeInput = document.getElementById('origins-code');
+      const emailError = document.getElementById('email-error');
+      const codeError = document.getElementById('code-error');
+      const emailSubmit = document.getElementById('email-submit');
+      const codeSubmit = document.getElementById('code-submit');
+      const sentTo = document.getElementById('sent-to');
+      const validEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+
+      async function post(path, body) {
+        const response = await fetch(path, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || 'request_failed');
+        return data;
+      }
+
+      function show(step) {
+        emailForm.hidden = step !== 'email';
+        codeForm.hidden = step !== 'code';
+      }
+
+      emailInput.addEventListener('input', () => {
+        emailSubmit.disabled = !validEmail(emailInput.value);
+      });
+      codeInput.addEventListener('input', () => {
+        codeSubmit.disabled = !codeInput.value.trim();
+      });
+
+      emailForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (emailSubmit.disabled) return;
+        emailError.hidden = true;
+        emailSubmit.disabled = true;
+        emailSubmit.textContent = 'Checking…';
+        try {
+          const email = emailInput.value.trim().toLowerCase();
+          await post('/api/access/start', { email });
+          sentTo.textContent = email;
+          codeInput.value = '';
+          codeError.hidden = true;
+          codeSubmit.disabled = true;
+          show('code');
+          codeInput.focus();
+        } catch (error) {
+          emailError.textContent = error.message === 'unknown_email'
+            ? 'This email is not on the Origins list.'
+            : error.message === 'email_send_failed'
+              ? 'We couldn’t send that code. Try again shortly.'
+              : error.message === 'throttled'
+                ? 'Please wait a moment and try again.'
+                : 'We couldn’t check that email yet. Please try again.';
+          emailError.hidden = false;
+        } finally {
+          emailSubmit.textContent = 'Continue';
+          emailSubmit.disabled = !validEmail(emailInput.value);
+        }
+      });
+
+      codeForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (codeSubmit.disabled) return;
+        codeError.hidden = true;
+        codeSubmit.disabled = true;
+        codeSubmit.textContent = 'Verifying…';
+        try {
+          await post('/api/access/verify', {
+            email: emailInput.value.trim().toLowerCase(),
+            code: codeInput.value.trim()
+          });
+          window.location.replace('/');
+        } catch (error) {
+          codeError.textContent = error.message === 'invalid_code'
+            ? 'That code didn’t match. Please try again.'
+            : error.message === 'unknown_email'
+              ? 'This email is not on the Origins list.'
+              : error.message === 'throttled'
+                ? 'Please wait a moment and try again.'
+                : 'We couldn’t verify that code yet. Please try again.';
+          codeError.hidden = false;
+          codeSubmit.disabled = !codeInput.value.trim();
+        } finally {
+          codeSubmit.textContent = 'Enter the preview';
+        }
+      });
+
+      document.getElementById('use-other-email').addEventListener('click', () => {
+        codeInput.value = '';
+        codeError.hidden = true;
+        show('email');
+        emailInput.focus();
+      });
+    });
   </script>
 </head>
 <body>
-<div class="site-shell" x-data="originsPreview" x-cloak>
-  <header class="flex h-[106px] items-center justify-between gap-6 max-[680px]:h-[92px] max-[680px]:gap-3.5">
-    <button type="button" class="border-0 bg-transparent p-0 text-left" @click="goHome" aria-label="Return to the Origins preview introduction"><span class="block font-label text-[29px] font-bold leading-none tracking-[-1.5px] max-[680px]:text-[25px]">socialfit</span><span class="mt-[9px] block font-body text-[9px] font-medium uppercase leading-[1.5] tracking-[.2em]">by Philia Life</span></button>
-    <span class="font-label text-[9px] font-semibold leading-[1.5] tracking-[.06em] text-[#8F8D8B] max-[680px]:text-[8px]">For Origins eyes only</span>
-  </header>
-  <main x-show="screen==='landing'" x-transition.opacity>
-    <section class="pb-[46px] pt-[23px] text-center max-[680px]:pb-9 max-[680px]:pt-[22px]"><div class="mx-auto mb-6 table rounded-full border border-[#DDD4CB] px-3 py-2 font-label text-[8px] font-bold uppercase leading-[1.6] tracking-[1.5px] text-ink before:mr-2 before:inline-block before:size-1.5 before:rounded-full before:bg-accent before:align-[1px]">Origins · Dubai First Wave</div><h1 class="display-1">Serendipity.<span class="block italic">By Design.</span></h1><p class="mx-auto mt-[26px] max-w-[550px] text-[14px] leading-[1.8] max-[680px]:text-[13px]">The right company. The right conversation.<br>A possibility you didn’t see coming.<br><br>What if your social life could fit the life you’re actually living?</p><div class="mx-auto mt-[30px] whitespace-nowrap rounded-[20px] bg-panel px-[26px] py-6 text-center font-head text-[clamp(11px,2.8vw,27px)] leading-[1.18] tracking-[-.35px] max-[680px]:mt-[27px] max-[680px]:rounded-[18px] max-[680px]:px-[23px]">The intelligence finds the fit. People create the belonging.</div></section>
-    <section class="mb-[38px] grid grid-cols-3 gap-7 rounded-[22px] bg-[#050507] p-[30px] text-paper max-[680px]:grid-cols-1 max-[680px]:gap-0 max-[680px]:p-[26px]">
-      <template x-for="item in [{n:'01',t:'Start with your life',p:'Your mood, your circumstances, what matters to you now.'},{n:'02',t:'Let the intelligence find fit',p:'A Signal reaches people who fit the context. They choose to respond.'},{n:'03',t:'Make something real happen',p:'You choose whom to invite. The Room is where a plan comes together.'}]" :key="item.n"><article class="max-[680px]:grid max-[680px]:grid-cols-[42px_1fr] max-[680px]:border-t max-[680px]:border-white/10 max-[680px]:py-[19px] max-[680px]:first:border-0 max-[680px]:first:pt-0 max-[680px]:last:pb-0"><span class="mb-[15px] block font-head text-[33px] leading-none max-[680px]:row-span-2 max-[680px]:m-0 max-[680px]:text-[32px]" x-text="item.n"></span><h2 class="font-label text-[12px] font-semibold leading-[1.5]" x-text="item.t"></h2><p class="mt-3 text-[11px] leading-[1.8] text-paper/65 max-[680px]:col-start-2 max-[680px]:mt-[7px]" x-text="item.p"></p></article></template>
-    </section>
-    <section class="section-rule">
-      <h2 class="font-head text-[32px] leading-[1.12] tracking-[-.6px] max-[680px]:text-[28px]">What if your social world evolved with you?</h2><div class="eyebrow mt-[30px]">Different needs. Different possibilities.</div>
-      <div class="mt-[22px] flex flex-wrap gap-2" role="tablist"><button type="button" class="segment" :class="matrixContext==='week'&&'segment-selected'" @click="matrixContext='week'">Your week</button><button type="button" class="segment" :class="matrixContext==='chapter'&&'segment-selected'" @click="matrixContext='chapter'">Your next chapter</button></div>
-      <div class="mt-5 overflow-hidden rounded-[18px] border border-line"><div class="grid grid-cols-2 gap-7 bg-[#050507] px-[23px] py-5 font-label text-[10px] font-semibold text-paper max-[680px]:hidden"><div>Your life</div><div>With SocialFit</div></div><template x-for="(row,index) in matrixRows" :key="index"><div class="grid grid-cols-2 gap-7 border-t border-line bg-paper px-[23px] py-5 text-[13px] leading-[1.8] first:border-t-0 max-[680px]:grid-cols-1 max-[680px]:gap-[13px]"><div class="text-muted before:mb-[7px] before:block before:font-label before:text-[8px] before:font-bold before:tracking-[1.3px] before:text-[#8F8D8B] before:content-['WHAT_IF_YOU_NEEDED…'] min-[681px]:before:hidden" x-text="row[0]"></div><div class="before:mb-[7px] before:block before:font-label before:text-[8px] before:font-bold before:tracking-[1.3px] before:text-accent before:content-['WITH_SOCIALFIT…'] min-[681px]:before:hidden" x-text="row[1]"></div></div></template></div>
-      <div class="grid grid-cols-[.85fr_1.15fr] gap-9 pb-[15px] pt-[35px] max-[680px]:grid-cols-1 max-[680px]:gap-[25px] max-[680px]:pt-[30px]"><div><div class="eyebrow">Social capital</div><h3 class="mt-[13px] font-head text-[36px] leading-[1.06] max-[680px]:text-[34px]">Your relationships.<br>Real-world value.</h3><p class="mt-3.5 text-[13px] leading-[1.8] text-muted">Grow your roots for belonging.<br>Your wings for possibility.</p></div><div class="divide-y divide-line border-y border-line">
-        <template x-for="item in [{q:'What is social capital?',a:'Social capital means recognising that relationships, trust and reputation are powerful assets in both personal and professional life. It refers to the benefits and opportunities that come from being connected to others, and can shape access, influence and long-term success.'},{q:'Why should you care?',a:'A trusted recommendation can get you into a room. Someone’s experience can change a decision. A relationship can become support when life takes a turn. Like a wealth portfolio, your relationships deserve intention and care over time. Their value grows through trust, reciprocity and what you make possible for one another.'},{q:'How does the intelligence help?',a:'Philia learns what matters to you using a whole-self wellbeing approach. It helps you strengthen existing relationships and discover new people who fit your life, so connection has somewhere meaningful to grow.'},{q:'How do you nurture it?',a:'Your Circle helps you see your existing connections and the relationships that develop, privately organised around closeness and trust. Inner, Support and Affinity help you recognise closeness, mutual care and common ground. You choose where people belong, and your placement stays private. Turn a conversation, idea or shared experience into a Signal, and give people a reason to come together.'}]" :key="item.q"><article x-data="{open:false}" class="py-[17px]"><button type="button" class="flex w-full items-center justify-between gap-4 text-left font-label text-[12px] font-semibold" :aria-expanded="open" @click="open=!open"><span x-text="item.q"></span><span class="font-head text-[20px] text-[#8F8D8B]" x-text="open?'−':'+'"></span></button><p x-show="open" x-transition.opacity class="mt-3.5 text-[13px] leading-[1.8] text-muted" x-text="item.a"></p></article></template>
-      </div></div>
-    </section>
-    <section class="section-rule"><h2 class="font-head text-[32px] leading-[1.12] tracking-[-.6px] max-[680px]:text-[28px]">Why we built it</h2><div class="mt-[30px] max-w-[650px] text-[14px] leading-[1.8] text-[#56545A]"><h3 class="mb-[23px] font-head text-[34px] leading-[1.12] text-ink">A little obsessed with human flourishing.</h3><p>We believe life deserves more warmth, more wholesomeness, more simplicity, and a more intelligent way of navigating the things that shape how well we live.</p><p class="mt-6 border-t border-line pt-6 font-head text-[28px] leading-[1.22] text-ink max-[680px]:text-[26px]">Because to us, success is a life well lived, with the people who bring out the best in us.</p></div></section>
-    <section class="border-t border-line pb-3 pt-[26px]"><div class="flex flex-wrap items-center gap-6"><button type="button" class="primary-btn" @click="startSignal">Try a Signal <span>↗</span></button><button type="button" class="text-btn" @click="openCircle">See a Circle ↗</button></div><p class="fine-copy">Start with a moment in your life. See how it becomes a possibility.<br>Private to the Dubai First Wave. About five minutes. No sign-up.</p></section>
-    <footer class="mt-5 flex justify-between gap-6 border-t border-line pb-[35px] pt-6 text-[10px] text-muted max-[680px]:flex-col max-[680px]:gap-[9px]"><span>SocialFit by Philia Life · Social intelligence for real life.</span><span>The intelligence finds the fit. People create the belonging.</span></footer>
-  </main>
-  <main x-show="screen==='signal'" x-transition.opacity class="mx-auto min-h-[690px] max-w-[864px] pb-[45px] pt-[13px] max-[680px]:min-h-[calc(100vh-92px)] max-[680px]:pb-[35px]">
-    <div class="mb-[42px] flex items-center justify-between gap-5 max-[680px]:mb-8"><button type="button" class="text-btn" @click="back" x-text="step===0?'← Back to preview':[3,4].includes(step)?'← Edit my Signal':'← Back'"></button><div class="flex gap-1.5"><template x-for="index in 6" :key="index"><i class="progress-line" :class="index-1<=progressIndex&&'progress-line-on'"></i></template></div></div>
-    <section x-show="step===0" x-transition.opacity><div class="eyebrow mb-[13px]">01 · Your life comes first</div><h1 class="display-2">What would feel good<br>in your week?</h1><p class="body-copy mt-[23px] max-w-[620px]">Choose a little moment you’d like to make happen. Your life has more than one side. Start with the one asking for a little attention today.</p><div class="mt-[30px] grid grid-cols-2 gap-[13px] max-[680px]:grid-cols-1"><template x-for="(item,index) in activities" :key="item.id"><button type="button" class="choice-card" :class="activity===item.id&&'choice-card-selected'" @click="choose('activity',item.id)"><span class="font-head text-[29px]" :class="activity===item.id?'text-accent':'text-[#8F8D8B]'" x-text="String(index+1).padStart(2,'0')"></span><span><strong class="block font-label text-[13px] font-semibold" x-text="item.title"></strong><small class="mt-[7px] block text-[12px] leading-[1.75] text-muted" x-text="item.sub"></small></span></button></template></div><div class="mt-8 flex items-center justify-between gap-6 border-t border-line pt-[25px] max-[680px]:flex-col max-[680px]:items-stretch"><p class="text-[11px] text-muted">A Signal starts with what you need, want or would like to share.</p><button class="primary-btn max-[680px]:order-first max-[680px]:w-full" :disabled="!activity" @click="nextStep">That sounds like me →</button></div></section>
-    <section x-show="step===1" x-transition.opacity><div class="eyebrow mb-[13px]">02 · The company matters</div><h1 class="display-2">And how are you<br>showing up?</h1><p class="body-copy mt-[23px] max-w-[620px]">The same plan can feel very different with different people. What kind of energy would fit you right now?</p><div class="mt-[30px] grid grid-cols-2 gap-[13px] max-[680px]:grid-cols-1"><template x-for="(item,index) in moods" :key="item.id"><button type="button" class="choice-card" :class="mood===item.id&&'choice-card-selected'" @click="choose('mood',item.id)"><span class="font-head text-[29px]" :class="mood===item.id?'text-accent':'text-[#8F8D8B]'" x-text="String(index+1).padStart(2,'0')"></span><span><strong class="block font-label text-[13px] font-semibold" x-text="item.title"></strong><small class="mt-[7px] block text-[12px] text-muted" x-text="item.sub"></small></span></button></template></div><div class="mt-6"><h2 class="mb-3 font-label text-[11px] font-semibold">What are you making room for?</h2><div class="flex flex-wrap gap-2"><button class="segment" :class="intention==='roots'&&'segment-selected'" @click="choose('intention','roots')">Roots · Reconnecting</button><button class="segment" :class="intention==='wings'&&'segment-selected'" @click="choose('intention','wings')">Wings · Discovering</button></div></div><div class="mt-8 flex items-center justify-between gap-6 border-t border-line pt-[25px] max-[680px]:flex-col max-[680px]:items-stretch"><p class="text-[11px] text-muted">Whole-self wellbeing means making room for connection, movement, ideas and play.</p><button class="primary-btn max-[680px]:order-first max-[680px]:w-full" :disabled="!mood" @click="nextStep">Make it fit my life →</button></div></section>
-    <section x-show="step===2" x-transition.opacity><div class="eyebrow mb-[13px]">03 · A little context</div><h1 class="display-2">Make it easy<br>to say yes.</h1><p class="body-copy mt-[23px]">A plan should fit your actual life. Pick the time, the journey and the people you want your Signal to reach.</p><div class="mt-6 grid grid-cols-[1fr_.9fr] gap-[30px] max-[680px]:grid-cols-1"><div><div class="mt-6"><h2 class="mb-3 font-label text-[11px] font-semibold">When could this fit?</h2><div class="flex flex-wrap gap-2"><template x-for="item in times"><button class="segment" :class="time===item&&'segment-selected'" @click="choose('time',item)" x-text="item"></button></template></div></div><div class="mt-6"><h2 class="mb-3 font-label text-[11px] font-semibold">How far would you go?</h2><div class="flex flex-wrap gap-2"><template x-for="item in radii"><button class="segment" :class="radius===item&&'segment-selected'" @click="choose('radius',item)" x-text="item"></button></template></div></div><div class="mt-6"><h2 class="mb-3 font-label text-[11px] font-semibold">Who can it reach?</h2><div class="grid grid-cols-2 gap-[9px] max-[680px]:grid-cols-1"><template x-for="item in reaches"><button class="reach-card" :class="reach===item.value&&'reach-card-selected'" @click="choose('reach',item.value)"><strong class="block font-label text-[11px]" x-text="item.value"></strong><small class="mt-1.5 block text-[10px] leading-[1.6] text-muted" x-text="item.description"></small></button></template></div></div></div><article class="panel p-7"><div class="eyebrow">Your Signal · <span x-text="activityData.world"></span></div><h2 class="display-3 mt-[22px]" x-text="activityData.signal"></h2><p class="mt-5 text-[13px] text-[#56545A]"><span x-text="moodData.sub"></span> <span x-text="intention==='roots'?'A little time with people already in your world.':'A little room for someone new in your world.'"></span></p><div class="mt-[23px] flex flex-wrap gap-[7px]"><template x-for="tag in [time,radius+' drive',reach]"><span class="rounded-full border border-[#DDD4CB] bg-paper/50 px-2.5 py-1.5 text-[10px]" x-text="tag"></span></template></div></article></div><div class="mt-8 flex items-center justify-between gap-6 border-t border-line pt-[25px] max-[680px]:flex-col max-[680px]:items-stretch"><p class="text-[11px] text-muted">In SocialFit, the intelligence brings context and trusted pathways together. People choose whether to respond.</p><button class="primary-btn max-[680px]:order-first max-[680px]:w-full" @click="nextStep">Send my demo Signal →</button></div></section>
-    <section x-show="step===3" x-transition.opacity class="mx-auto max-w-[640px] py-[60px]"><div class="eyebrow mb-[15px]">Serendipity by Design</div><h1 class="display-2">A little intelligence.<br>A little possibility.</h1><p class="body-copy my-[23px]">Your context creates the conditions.<br>People bring the possibility to life.</p><p class="h-[27px] text-[12px] text-muted" x-text="routeStatus"></p><div class="mt-[33px] h-px w-[150px] bg-accent"></div></section>
-    <section x-show="step===4" x-transition.opacity><div class="eyebrow mb-[13px]">04 · People choose, too</div><h1 class="display-2">Your Signal resonated.</h1><p class="body-copy mt-[23px]">In this illustration, three people chose to show interest. Take a look at why the moment could fit, then choose one or more to invite into your Room.</p><div class="mt-[30px] grid grid-cols-3 gap-[13px] max-[680px]:grid-cols-1"><template x-for="(person,index) in responders" :key="person.id"><article class="flex flex-col rounded-[18px] border border-line p-[23px]"><div class="avatar" x-text="person.initial"></div><div class="eyebrow mt-[19px] text-[8px]" x-text="source(index)"></div><h2 class="font-head text-[31px]" x-text="person.name"></h2><p class="mt-[13px] text-[12px] text-[#56545A]" x-text="person.line"></p><div class="mt-5 flex-1 border-t border-line py-[15px] text-[11px] text-muted"><strong class="block text-ink">Why this moment could fit</strong><span x-text="person.mood===mood?'The same pace of company.':'A complementary perspective.'"></span> A shared interest in <span x-text="activityData.world.toLowerCase()"></span>.<br><span x-text="time"></span> · <span x-text="person.minutes"></span> minutes away</div><button class="mt-2 rounded-[12px] border border-[#DDD4CB] p-2.5 text-[11px]" :class="invited.includes(person.id)&&'bg-[#050507] text-paper'" @click="toggleInvite(person.id)" x-text="invited.includes(person.id)?'Invited ✓':'Invite to my Room +'" ></button></article></template></div><article x-data="{open:false}" class="mt-7 border-y border-line py-[17px]"><button class="flex w-full justify-between font-label text-[12px] font-semibold" @click="open=!open"><span>How this worked</span><span x-text="open?'−':'+'"></span></button><p x-show="open" class="mt-3.5 text-[13px] text-muted">Your choices changed this illustration. In the product, Philia learns about the whole person over time. It finds contextual fit and trusted pathways, while people choose whether to respond and meet. What feels like chance starts with fit.</p></article><div class="mt-8 flex items-center justify-between gap-6 border-t border-line pt-[25px] max-[680px]:flex-col max-[680px]:items-stretch"><p class="text-[11px] text-muted">A Room needs at least 2 people, including you.</p><button class="primary-btn max-[680px]:order-first max-[680px]:w-full" :disabled="invited.length<1" @click="nextStep">Bring the Room together (<span x-text="invited.length+1"></span>) →</button></div></section>
-    <section x-show="step===5" x-transition.opacity><div class="eyebrow mb-[13px]">05 · From possibility to a plan</div><h1 class="display-2">This is where<br>real life begins.</h1><p class="body-copy mt-[23px]">Your demo invitations were accepted. The Room gives you a shared place to agree a plan and spend time together.</p><div class="mt-[30px] grid grid-cols-[1.1fr_.9fr] gap-8 max-[680px]:grid-cols-1"><article class="panel p-7"><div class="eyebrow">Your Room · <span x-text="roomPeople.length+1"></span> people</div><h2 class="display-3 mt-3" x-text="activityData.signal"></h2><div class="my-[23px] flex flex-wrap gap-2.5"><div class="text-center text-[10px] text-muted"><div class="avatar">You</div>You</div><template x-for="person in roomPeople"><div class="text-center text-[10px] text-muted"><div class="avatar" x-text="person.initial"></div><span x-text="person.name"></span></div></template></div><div class="border-t border-[#DDD4CB] pt-[18px] text-[12px] text-[#56545A]"><p><span x-text="time"></span> · <span x-text="activityData.venue"></span></p><p>A venue within your chosen travel range, agreed together.</p></div><div class="mt-[22px] rounded-[14px] border border-line bg-paper p-4 text-[12px]"><strong class="block font-label text-[9px]" x-text="roomPeople[0]?.name+' · Example conversation'"></strong>“This is exactly the kind of plan I was hoping for. Shall we find a spot that works for everyone?”</div><button class="secondary-btn mt-5 w-full" :disabled="planDone" @click="agreePlan" x-text="planDone?'Example plan agreed ✓':'Agree this example plan ✓'"></button><p x-show="planDone" class="fine-copy">Example plan agreed. Nothing has been booked or sent.</p></article><div class="flex flex-col justify-center"><div class="eyebrow">Serendipity by Design</div><h2 class="mt-3 font-head text-[34px] leading-[1.14]">The meeting feels<br>wonderfully unexpected.<br>The conditions were designed.</h2><p class="mt-5 text-[13px] text-[#56545A]">A Signal began with your life. Fit helped it reach the right context. People chose to take it somewhere.</p><p class="mt-5 text-[13px] text-[#56545A]">The intelligence finds the fit.<br>People create the belonging.</p></div></div><div class="mt-8 flex items-center justify-between gap-6 border-t border-line pt-[25px] max-[680px]:flex-col max-[680px]:items-stretch"><p class="text-[11px] text-muted">Meeting is a beginning. Your relationships can keep growing.</p><button class="primary-btn max-[680px]:order-first max-[680px]:w-full" @click="nextStep">And after you meet? →</button></div></section>
-    <section x-show="step===6" x-transition.opacity><div class="eyebrow mb-[13px]">06 · What grows from here</div><h1 class="display-2">A moment can become<br>part of your world.</h1><p class="body-copy mt-[23px]">Social capital grows through shared experiences, trust, support and what you make possible for one another.</p><div class="mt-8 flex items-center justify-between gap-6 border-t border-line pt-[25px] max-[680px]:flex-col max-[680px]:items-stretch"><p class="text-[11px] text-muted">Your journey starts when<br>your Founder Key arrives.</p><div class="flex w-[390px] max-w-full flex-col gap-[11px] max-[680px]:order-first max-[680px]:w-full"><button class="primary-btn w-full" :disabled="excitedDone" @click="markExcited" x-text="excitedDone?'See you on the inside.':'I’m excited. I can’t wait to start my onboarding.'"></button><button class="secondary-btn w-full" :disabled="keyRequestBusy||keysDone" @click="requestKeys" x-text="keyRequestBusy?'Saving your request…':keysDone?'Request received ✓':'Request more Keys to gift to friends'"></button></div></div><p x-show="excitedDone" class="fine-copy">For now, there’s nothing you need to do. Just keep an eye out for your Founder Key.<br>See you on the inside.</p><p x-show="keysDone" class="fine-copy">We’ve noted your interest in more Keys to gift to friends.</p><p x-show="keyRequestError" class="fine-copy text-accent" x-text="keyRequestError"></p><div x-show="otherFlowVisible" x-transition class="mt-[26px] border-t border-line pt-[25px] text-center"><div class="eyebrow">One more side to explore</div><h2 class="mt-2.5 font-head text-[31px]">Now, see your Circle.</h2><p class="mx-auto my-3.5 max-w-[480px] text-[13px] text-[#56545A]">See how SocialFit helps you understand and nurture the relationships already in your world.</p><button class="secondary-btn" @click="openCircle">See a Circle →</button></div></section>
-    <p class="mt-[33px] text-center text-[10px] text-muted">Illustrative demo · Fictional people and responses · No live matching or invitations</p>
-  </main>
-  <main x-show="screen==='circle'" x-transition.opacity class="mx-auto min-h-[690px] max-w-[864px] pb-[45px] pt-[13px]"><div class="mb-[42px] flex justify-between"><button class="text-btn" @click="goHome">← Back to preview</button><span class="eyebrow">Circle preview</span></div><div class="eyebrow mb-[13px]">Circle · Relationships worth caring for</div><h1 class="display-2">Different connections.<br>Different kinds of belonging.</h1><p class="body-copy mt-[23px]">Your Circle gives you a private way to understand and nurture your relationships, both the people already in your life and the connections that develop through SocialFit.</p><div class="mt-[30px] grid grid-cols-3 gap-3.5 max-[680px]:grid-cols-1"><template x-for="tier in [{n:'01 · Closeness & trust',h:'Inner',p:'The people you feel closest to. Where you can be yourself, feel understood and share what really matters.',d:'Make room for time together, honest conversations and the small moments that keep you close.'},{n:'02 · Care & encouragement',h:'Support',p:'The people you turn to for encouragement, perspective or a helping hand, and those you want to show up for in return.',d:'Keep mutual care alive through check-ins, shared experiences and being there when it counts.'},{n:'03 · Shared interests & outlook',h:'Affinity',p:'The people you share interests, experiences or a way of seeing the world with. Common ground gives you a reason to come together.',d:'Turn an interest, an idea or a shared curiosity into a plan, and give the relationship room to grow.'}]" :key="tier.h"><article class="rounded-[18px] border border-line p-6"><div class="eyebrow text-[8px]" x-text="tier.n"></div><h2 class="mt-[15px] font-head text-[36px]" x-text="tier.h"></h2><p class="mt-[19px] text-[12px] text-[#56545A]" x-text="tier.p"></p><p class="mt-5 border-t border-line pt-[17px] text-[12px] text-muted" x-text="tier.d"></p></article></template></div><article class="panel mt-6 p-7"><div class="eyebrow">Organised by you. For your eyes only.</div><h2 class="mt-3 font-head text-[33px]">Give connection a place to grow.</h2><div class="space-y-[18px] text-[13px] text-[#56545A]"><p>A fuller social life includes people who understand you, people who support you and people who bring different parts of you to life. Circle helps you notice those relationships and give them care over time.</p><p>You decide where someone belongs. Your placement stays private. These circles describe how a relationship fits your life, rather than someone’s worth, and can evolve as you get to know one another.</p><p>A coffee with someone close. A conversation with someone who understands your next chapter. A shared experience with people who love what you love. Time together gives these relationships room to grow.</p></div></article><div class="mt-8 flex items-center justify-between gap-6 border-t border-line pt-[25px] max-[680px]:flex-col max-[680px]:items-stretch"><p class="text-[11px] text-muted">Your journey starts when<br>your Founder Key arrives.</p><div class="flex w-[390px] max-w-full flex-col gap-[11px] max-[680px]:order-first max-[680px]:w-full"><button class="primary-btn w-full" :disabled="excitedDone" @click="markExcited" x-text="excitedDone?'See you on the inside.':'I’m excited. I can’t wait to start my onboarding.'"></button><button class="secondary-btn w-full" :disabled="keyRequestBusy||keysDone" @click="requestKeys" x-text="keyRequestBusy?'Saving your request…':keysDone?'Request received ✓':'Request more Keys to gift to friends'"></button></div></div><p x-show="excitedDone" class="fine-copy">For now, there’s nothing you need to do. Just keep an eye out for your Founder Key.<br>See you on the inside.</p><p x-show="keysDone" class="fine-copy">We’ve noted your interest in more Keys to gift to friends.</p><p x-show="keyRequestError" class="fine-copy text-accent" x-text="keyRequestError"></p><div x-show="otherFlowVisible" class="mt-[26px] border-t border-line pt-[25px] text-center"><div class="eyebrow">One more side to explore</div><h2 class="mt-2.5 font-head text-[31px]">Now, try a Signal.</h2><p class="mx-auto my-3.5 max-w-[480px] text-[13px] text-[#56545A]">See how a moment in your life could become a real-world plan with people who fit.</p><button class="secondary-btn" @click="startSignal">Try a Signal →</button></div><p class="mt-[33px] text-center text-[10px] text-muted">Illustrative demo · Fictional people and responses · No live matching or invitations</p></main>
+<div class="site-shell">
+  <div class="mb-10 font-label text-[29px] font-bold leading-none tracking-[-1.5px]">socialfit<small class="mt-[9px] block font-body text-[9px] font-medium uppercase tracking-[.2em]">by Philia Life</small></div>
+  <div class="eyebrow">For Origins eyes only</div>
+  <h1 class="mt-[18px] font-head text-[48px] font-normal leading-[1.02] tracking-[-1px] max-[680px]:text-[40px]">This is a private<br>first look.</h1>
+
+  <form id="email-form" class="mt-8">
+    <label class="mb-2.5 block font-label text-[11px] font-semibold" for="origins-email">Invitation email</label>
+    <input id="origins-email" class="field" type="email" name="email" autocomplete="email" inputmode="email" required placeholder="name@email.com">
+    <p class="mt-3.5 text-[11px] leading-[1.7] text-muted">Enter the email that received your Origins invitation. We’ll send a verification code if it’s on the list.</p>
+    <p id="email-error" hidden class="mt-3.5 text-[12px] text-accent"></p>
+    <button id="email-submit" type="submit" class="primary-btn mt-7" disabled>Continue</button>
+  </form>
+
+  <form id="code-form" class="mt-8" hidden>
+    <label class="mb-2.5 block font-label text-[11px] font-semibold" for="origins-code">Verification code</label>
+    <input id="origins-code" class="field tracking-[.2em]" type="text" name="code" inputmode="text" autocomplete="one-time-code" required placeholder="Enter your code">
+    <p class="mt-3.5 text-[11px] leading-[1.7] text-muted">We sent a code to <span id="sent-to" class="text-ink"></span>.</p>
+    <p id="code-error" hidden class="mt-3.5 text-[12px] text-accent"></p>
+    <button id="code-submit" type="submit" class="primary-btn mt-7" disabled>Enter the preview</button>
+    <button id="use-other-email" type="button" class="text-btn mt-3 w-full">Use a different email</button>
+  </form>
+
+  <p class="mt-10 text-[11px] text-muted">Dubai First Wave. Personal invitation required.</p>
 </div>
 </body>
 </html>

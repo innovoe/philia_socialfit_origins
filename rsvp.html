@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#FBF8F7">
+  <meta name="description" content="Your SocialFit Origins invitation reply.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>SocialFit Origins</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-head: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+      --font-body: Inter, Arial, sans-serif;
+      --font-label: Montserrat, Arial, sans-serif;
+      --color-ink: #202034; --color-muted: #6F6C69; --color-paper: #FFFDF9;
+      --color-canvas: #FBF8F7; --color-panel: #F2ECE5; --color-line: #E8E0D9; --color-accent: #B30D12;
+    }
+    @layer base {
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { @apply m-0 bg-canvas text-ink font-body text-[15px] leading-[1.8] antialiased; }
+    }
+    @layer components {
+      .site-shell { @apply mx-auto my-[34px] max-w-[620px] overflow-hidden rounded-[28px] border border-[#EEE9E4] bg-paper px-12 pb-14 pt-12 shadow-[0_18px_50px_rgba(32,32,52,.06)] max-[1000px]:mx-5 max-[1000px]:my-6 max-[680px]:m-0 max-[680px]:rounded-none max-[680px]:border-0 max-[680px]:px-6 max-[680px]:pt-10 max-[680px]:shadow-none; }
+      .eyebrow { @apply font-label text-[9px] font-bold uppercase leading-[1.6] tracking-[1.7px] text-accent; }
+    }
+  </style>
+</head>
+<body>
+<div class="site-shell">
+  <div class="mb-10 font-label text-[29px] font-bold leading-none tracking-[-1.5px]">socialfit<small class="mt-[9px] block font-body text-[9px] font-medium uppercase tracking-[.2em]">by Philia Life</small></div>
+
+  <div id="confirmed">
+    <div class="eyebrow">You’re coming</div>
+    <h1 class="mt-[18px] font-head text-[48px] font-normal leading-[1.02] tracking-[-1px] max-[680px]:text-[40px]">Thank you.<br>We’ve saved your place.</h1>
+    <p id="event-line" class="mt-6 text-[16px] leading-[1.7]">Saturday 3 October, 4–8pm.</p>
+    <p class="mt-4 text-[14px] leading-[1.8] text-[#56545A]">We’ll be in touch with more details closer to the date.</p>
+  </div>
+
+  <div id="error" hidden>
+    <div class="eyebrow">Origins invitation</div>
+    <h1 id="error-title" class="mt-[18px] font-head text-[48px] font-normal leading-[1.02] tracking-[-1px] max-[680px]:text-[40px]">We couldn’t confirm just now.</h1>
+    <p id="error-copy" class="mt-6 text-[14px] leading-[1.8] text-[#56545A]">Please open the confirmation link from your invitation email, or try again in a moment.</p>
+  </div>
+
+  <p class="mt-10 text-[11px] text-muted">Dubai First Wave. Personal invitation required.</p>
+</div>
+<script>
+  (function () {
+    const params = new URLSearchParams(location.search);
+    const status = (params.get('status') || '').trim().toLowerCase();
+    const error = (params.get('error') || '').trim();
+    const eventKey = (params.get('event') || '').trim();
+    const events = {
+      'origins_2026-10-03': 'Saturday 3 October, 4–8pm.'
+    };
+    const confirmed = document.getElementById('confirmed');
+    const errorBox = document.getElementById('error');
+
+    if (status === 'error') {
+      confirmed.hidden = true;
+      errorBox.hidden = false;
+      const title = document.getElementById('error-title');
+      const copy = document.getElementById('error-copy');
+      if (error === 'unknown_email') {
+        title.innerHTML = 'We couldn’t find<br>that invitation.';
+        copy.textContent = 'This confirmation is only for emails on the Origins list. Open the link from your invitation email if you were invited.';
+      } else if (error === 'throttled') {
+        title.innerHTML = 'Please try again<br>in a moment.';
+        copy.textContent = 'We received too many confirmation attempts just now. Open the link from your invitation email again shortly.';
+      } else if (error === 'invalid_email') {
+        title.innerHTML = 'That confirmation<br>link isn’t complete.';
+        copy.textContent = 'Open the confirmation from your invitation email, rather than typing the address by hand.';
+      }
+      return;
+    }
+
+    const eventLine = document.getElementById('event-line');
+    eventLine.textContent = events[eventKey] || 'We’ll send you the details.';
+  })();
+</script>
+</body>
+</html>
