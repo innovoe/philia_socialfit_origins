@@ -41,7 +41,12 @@
       return `${ORIGINS_API_BASE}/${path.replace(/^\/+|\/+$/g, '')}/`;
     }
 
+    if (/^\/rsvp\/?$/i.test(location.pathname)) {
+      window.location.replace('/rsvp.html' + location.search);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      if (/^\/rsvp\/?$/i.test(location.pathname)) return;
       if (sessionStorage.getItem('origins_email')) {
         window.location.replace('/preview.html');
         return;
