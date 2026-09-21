@@ -60,6 +60,9 @@
     function originsApi(path) {
       return `${ORIGINS_API_BASE}/${path.replace(/^\/+|\/+$/g, '')}/`;
     }
+    if (!sessionStorage.getItem('origins_email')) {
+      window.location.replace('/');
+    }
     window.SOCIALFIT_PREVIEW_CONFIG = window.SOCIALFIT_PREVIEW_CONFIG || {};
     window.originsPreview = () => ({
         screen:'landing', step:0, matrixContext:'week', activity:null, mood:null, intention:'wings',

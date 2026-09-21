@@ -42,6 +42,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('origins_email')) {
+        window.location.replace('/preview.html');
+        return;
+      }
       const emailForm = document.getElementById('email-form');
       const codeForm = document.getElementById('code-form');
       const emailInput = document.getElementById('origins-email');
@@ -112,12 +116,13 @@
         codeSubmit.disabled = true;
         codeSubmit.textContent = 'Verifying…';
         try {
+          const email = emailInput.value.trim().toLowerCase();
           const data = await post(originsApi('access/verify'), {
-            email: emailInput.value.trim().toLowerCase(),
+            email,
             code: codeInput.value.trim()
           });
-          if (data.email) sessionStorage.setItem('origins_email', data.email);
-          window.location.replace('/');
+          sessionStorage.setItem('origins_email', data.email || email);
+          window.location.replace('/preview.html');
         } catch (error) {
           codeError.textContent = error.message === 'invalid_code'
             ? 'That code didn’t match. Please try again.'
