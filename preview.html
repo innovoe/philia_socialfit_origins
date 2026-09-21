@@ -56,7 +56,10 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
   </style>
   <script>
-    fetch('/api/access/me',{credentials:'same-origin'}).then(function(r){if(!r.ok)location.replace('/');}).catch(function(){location.replace('/');});
+    const ORIGINS_API_BASE = 'https://api.philia.life/api/socialfit/origins';
+    function originsApi(path) {
+      return `${ORIGINS_API_BASE}/${path.replace(/^\/+|\/+$/g, '')}/`;
+    }
     window.SOCIALFIT_PREVIEW_CONFIG = window.SOCIALFIT_PREVIEW_CONFIG || {};
     window.originsPreview = () => ({
         screen:'landing', step:0, matrixContext:'week', activity:null, mood:null, intention:'wings',
@@ -116,9 +119,9 @@
         back(){if(this.step===0)return this.goHome();if([3,4].includes(this.step))this.step=2;else this.step-=1;this.clearTimers();this.scrollTop()},
         toggleInvite(id){this.invited=this.invited.includes(id)?this.invited.filter(item=>item!==id):[...this.invited,id];this.track('demo_invitation_toggled',{count:this.invited.length})},
         agreePlan(){this.planDone=true;this.track('demo_plan_agreed')},
-        async postInterest(path){const response=await fetch(path,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'origins_interactive_preview'})});const data=await response.json().catch(()=>({}));if(data.error==='unauthorized'||response.status===401){location.replace('/');throw new Error('unauthorized')}if(!response.ok)throw new Error(data.error||'request_failed');return data},
-        async markExcited(){if(this.excitedBusy||this.excitedDone)return;this.excitedBusy=true;this.excitedError='';try{await this.postInterest('/api/preview/excited');this.excitedDone=true;this.track('demo_onboarding_excitement_selected')}catch(error){if(error.message!=='unauthorized'){this.excitedError='We couldn’t save that yet. Please try again.';this.track('demo_onboarding_excitement_failed')}}finally{this.excitedBusy=false}},
-        async requestKeys(){if(this.keyRequestBusy||this.keysDone)return;this.keyRequestBusy=true;this.keyRequestError='';try{await this.postInterest('/api/preview/keys');this.keysDone=true;this.track('demo_extra_keys_requested',{source:'origins_interactive_preview'})}catch(error){if(error.message!=='unauthorized'){this.keyRequestError='We couldn’t save your request yet. Please try again.';this.track('demo_extra_keys_request_failed',{source:'origins_interactive_preview'})}}finally{this.keyRequestBusy=false}},
+        async postInterest(path){const email=(sessionStorage.getItem('origins_email')||'').trim().toLowerCase();const response=await fetch(originsApi(path),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'origins_interactive_preview'})});const data=await response.json().catch(()=>({}));if(data.error==='unauthorized'||response.status===401){location.replace('/');throw new Error('unauthorized')}if(!response.ok)throw new Error(data.error||'request_failed');return data},
+        async markExcited(){if(this.excitedBusy||this.excitedDone)return;this.excitedBusy=true;this.excitedError='';try{await this.postInterest('preview/excited');this.excitedDone=true;this.track('demo_onboarding_excitement_selected')}catch(error){if(error.message!=='unauthorized'){this.excitedError='We couldn’t save that yet. Please try again.';this.track('demo_onboarding_excitement_failed')}}finally{this.excitedBusy=false}},
+        async requestKeys(){if(this.keyRequestBusy||this.keysDone)return;this.keyRequestBusy=true;this.keyRequestError='';try{await this.postInterest('preview/keys');this.keysDone=true;this.track('demo_extra_keys_requested',{source:'origins_interactive_preview'})}catch(error){if(error.message!=='unauthorized'){this.keyRequestError='We couldn’t save your request yet. Please try again.';this.track('demo_extra_keys_request_failed',{source:'origins_interactive_preview'})}}finally{this.keyRequestBusy=false}},
         track(name,parameters={}){document.dispatchEvent(new CustomEvent('socialfit:demo',{detail:{name,parameters,demo:true}}));if(typeof window.gtag==='function')window.gtag('event',name,{...parameters,demo:true})}
       });
   </script>

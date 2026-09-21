@@ -36,6 +36,11 @@
     }
   </style>
   <script>
+    const ORIGINS_API_BASE = 'https://api.philia.life/api/socialfit/origins';
+    function originsApi(path) {
+      return `${ORIGINS_API_BASE}/${path.replace(/^\/+|\/+$/g, '')}/`;
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const emailForm = document.getElementById('email-form');
       const codeForm = document.getElementById('code-form');
@@ -80,7 +85,7 @@
         emailSubmit.textContent = 'Checking…';
         try {
           const email = emailInput.value.trim().toLowerCase();
-          await post('/api/access/start', { email });
+          await post(originsApi('access/start'), { email });
           sentTo.textContent = email;
           codeInput.value = '';
           codeError.hidden = true;
@@ -107,10 +112,11 @@
         codeSubmit.disabled = true;
         codeSubmit.textContent = 'Verifying…';
         try {
-          await post('/api/access/verify', {
+          const data = await post(originsApi('access/verify'), {
             email: emailInput.value.trim().toLowerCase(),
             code: codeInput.value.trim()
           });
+          if (data.email) sessionStorage.setItem('origins_email', data.email);
           window.location.replace('/');
         } catch (error) {
           codeError.textContent = error.message === 'invalid_code'
