@@ -34,11 +34,11 @@
 <div class="site-shell">
   <img class="mb-10 h-[52px] w-auto max-w-[240px]" src="/SocialfitbyPLLogo.webp" alt="SocialFit by Philia Life">
 
-  <div id="confirmed">
-    <div class="eyebrow">You’re coming</div>
-    <h1 class="mt-[18px] font-head text-[48px] font-normal leading-[1.02] tracking-[-1px] max-[680px]:text-[40px]">Thank you.<br>We’ve saved your place.</h1>
+  <div id="ok">
+    <div id="ok-eyebrow" class="eyebrow">You’re coming</div>
+    <h1 id="ok-title" class="mt-[18px] font-head text-[48px] font-normal leading-[1.02] tracking-[-1px] max-[680px]:text-[40px]">Thank you.<br>We’ve saved your place.</h1>
     <p id="event-line" class="mt-6 text-[16px] leading-[1.7]">Saturday 3 October, 4–8pm.</p>
-    <p class="mt-4 text-[14px] leading-[1.8] text-[#56545A]">We’ll be in touch with more details closer to the date.</p>
+    <p id="follow-up" class="mt-4 text-[14px] leading-[1.8] text-[#56545A]">We’ll be in touch with more details closer to the date.</p>
   </div>
 
   <div id="error" hidden>
@@ -55,14 +55,15 @@
     const status = (params.get('status') || '').trim().toLowerCase();
     const error = (params.get('error') || '').trim();
     const eventKey = (params.get('event') || '').trim();
+    const email = (params.get('email') || '').trim().toLowerCase();
     const events = {
       'origins_2026-10-03': 'Saturday 3 October, 4–8pm.'
     };
-    const confirmed = document.getElementById('confirmed');
+    const ok = document.getElementById('ok');
     const errorBox = document.getElementById('error');
 
     if (status === 'error') {
-      confirmed.hidden = true;
+      ok.hidden = true;
       errorBox.hidden = false;
       const title = document.getElementById('error-title');
       const copy = document.getElementById('error-copy');
@@ -79,8 +80,17 @@
       return;
     }
 
+    if (status === 'already') {
+      document.getElementById('ok-eyebrow').textContent = 'Already confirmed';
+      document.getElementById('ok-title').innerHTML = 'You’re already<br>on the list.';
+    }
+
     const eventLine = document.getElementById('event-line');
     eventLine.textContent = events[eventKey] || 'We’ll send you the details.';
+    if (email && email.includes('@')) {
+      document.getElementById('follow-up').textContent =
+        `We’ll write to ${email} with more details closer to the date.`;
+    }
   })();
 </script>
 </body>
